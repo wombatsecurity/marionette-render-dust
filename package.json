@@ -1,5 +1,5 @@
 {
-	"name": "marionette-dust-render",
+	"name": "marionette-render-dust",
 	"version": "0.0.1",
 	"description": "Overrides Marionette's Renderer.render method to render pre-compiled DustJS templates",
 	"main": "index.js",
