@@ -13,13 +13,7 @@ var renderFN = function(data, callback) {
 	callback(null, html);
 };
 
-var options = {
-	postProcessor: function(html) {
-		return html + " and changes";
-	}
-};
-
-require("../index")(Marionette, dust, options);
+require("../index")(Marionette, dust);
 
 var render = Marionette.Renderer.render;
 
@@ -97,9 +91,20 @@ describe('marionette-dust-render', function() {
 				render(o.f, {});
 				expect( o.f).to.have.been.called;
 			});
+
+			it("should leave it up to the function on what to return", function(){
+				var ret = render(renderFN, {});
+				expect(ret).to.equal(html);
+			});
 		});
 
 		describe("as a string", function(){
+			beforeEach(function(){
+				sandbox.stub(dust, "render", function(template){
+					return template;
+				});
+			});
+
 			it("should not throw an error", function(){
 				expect(function(){
 					render("<div></div>", {});
@@ -107,7 +112,6 @@ describe('marionette-dust-render', function() {
 			});
 
 			it("should call dust's render function", function(){
-				sandbox.spy(dust, "render");
 				render("<div></div>", {});
 				expect( dust.render ).to.have.been.called;
 			});
@@ -115,14 +119,29 @@ describe('marionette-dust-render', function() {
 		});
 	});
 
+
 	describe("Passing a postprocessor function", function(){
+		var options;
+
+		before(function(){
+			options = {
+				postProcessor: function(html) {
+					return html + " and changes";
+				}
+			};
+
+			require("../index")(Marionette, dust, options);
+
+			render = Marionette.Renderer.render;
+		});
+
 		it("should not throw an error", function(){
 			expect(function(){
 				render(renderFN, {});
 			}).to.not.throw();
 		});
 
-		it("should call the postProcessor function if one is passed in", function(){
+		it("should call the postProcessor function", function(){
 			sandbox.spy(options, "postProcessor");
 			render(renderFN, {});
 			expect( options.postProcessor).to.have.been.called;
