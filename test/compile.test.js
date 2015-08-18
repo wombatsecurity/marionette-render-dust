@@ -1,9 +1,25 @@
 'use strict';
 
+//for whatever reason, Backbone.$ wasn't getting set, so I set it manually
+var $ = require('jquery');
+var Backbone = require('backbone');
+Backbone.$ = $;
+
 var Marionette = require('backbone.marionette');
 var dust = require('dustjs-linkedin');
 
-require("../index")(Marionette, dust);
+var html = "<div>Some html</div>";
+var renderFN = function(data, callback) {
+	callback(null, html);
+};
+
+var options = {
+	postProcessor: function(html) {
+		return html + " and changes";
+	}
+};
+
+require("../index")(Marionette, dust, options);
 
 var render = Marionette.Renderer.render;
 
@@ -96,6 +112,26 @@ describe('marionette-dust-render', function() {
 				expect( dust.render ).to.have.been.called;
 			});
 
+		});
+	});
+
+	describe("Passing a postprocessor function", function(){
+		it("should not throw an error", function(){
+			expect(function(){
+				render(renderFN, {});
+			}).to.not.throw();
+		});
+
+		it("should call the postProcessor function if one is passed in", function(){
+			sandbox.spy(options, "postProcessor");
+			render(renderFN, {});
+			expect( options.postProcessor).to.have.been.called;
+		});
+
+		it("should allow you to alter what gets returned from the render function", function(){
+			var ret = render(renderFN, {});
+			expect( ret ).not.to.equal(html);
+			expect( ret ).to.equal(html + " and changes");
 		});
 	});
 

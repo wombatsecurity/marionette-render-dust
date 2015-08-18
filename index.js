@@ -3,7 +3,7 @@
  * @param Marionette
  * @param dust
  */
-module.exports = function(Marionette, dust) {
+module.exports = function(Marionette, dust, options) {
 	//override Marionette's render function
 	Marionette.Renderer.render = function (template, data) {
 		//if no template is passed in, throw an error
@@ -36,6 +36,10 @@ module.exports = function(Marionette, dust) {
 		//if the function is a string, let the dust.render function handle it
 		else {
 			dust.render( template, data, callback );
+		}
+
+		if( options && options.postProcessor ) {
+			html = options.postProcessor(html);
 		}
 
 		//return the html
