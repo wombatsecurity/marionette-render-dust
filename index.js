@@ -20,7 +20,7 @@ module.exports = function( Marionette, dust, options ) {
 		}
 
 		// hold a blank html variable to return
-		let html = "";
+		var html = "";
 
 		// call dust.render
 		dust.render( template, data, function( err, out ) {
