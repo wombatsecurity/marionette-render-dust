@@ -1,0 +1,6 @@
+Hello, {person}.
+
+This is a test dust template. We have found the following items:
+<ol>
+{#items}    <li>{text}</li>
+{/items}</ol>
