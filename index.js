@@ -20,10 +20,10 @@ module.exports = function( Marionette, dust, options ) {
 		}
 
 		// hold a blank html variable to return
-		var html = "";
+		let html = "";
 
-		// hold a callback function for both options below to utilize
-		var callback = function( err, out ) {
+		// call dust.render
+		dust.render( template, data, function( err, out ) {
 			if ( err ) {
 				if ( console && console.error ) {
 					console.error( 'Dust render error: ' + err );
@@ -31,17 +31,7 @@ module.exports = function( Marionette, dust, options ) {
 			} else {
 				html = out;
 			}
-		};
-
-		// if the template is a function, call the function with the passed in data
-		if ( typeof template === 'function' ) {
-			template( data, callback );
-		}
-
-		// if the template is a string, let the dust.render function handle it
-		else {
-			dust.render( template, data, callback );
-		}
+		} );
 
 		// post-process & return the html
 		return postProcessors.process( html, data );
