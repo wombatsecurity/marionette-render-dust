@@ -20,15 +20,15 @@
     "license": "MIT",
     "homepage": "https://github.com/wombatsecurity/marionette-render-dust",
     "devDependencies": {
-        "jquery": "^2.1.4",
         "backbone": "1.1.1",
         "backbone.marionette": "^2.4.1",
-        "dustjs-linkedin": "^2.7.2",
-        "rimraf": "^2.4.0",
         "chai": "^3.0.0",
-        "sinon": "^1.15.4",
-        "sinon-chai": "^2.8.0",
+        "dustjs-linkedin": "^2.7.2",
         "istanbul": "^0.3.16",
-        "mocha": "^2.2.5"
+        "jquery": "^3.4.1",
+        "mocha": "^6.2.2",
+        "rimraf": "^2.4.0",
+        "sinon": "^1.15.4",
+        "sinon-chai": "^2.8.0"
     }
 }
