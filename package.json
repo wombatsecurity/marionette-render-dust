@@ -4,7 +4,7 @@
     "description": "Overrides Marionette's Renderer.render method to render pre-compiled DustJS templates",
     "main": "index.js",
     "scripts": {
-        "test": "istanbul cover ./node_modules/mocha/bin/_mocha -- test/spec.js"
+        "test": "node ./node_modules/mocha/bin/_mocha -- test/spec.js"
     },
     "repository": {
         "type": "git",
@@ -24,7 +24,6 @@
         "backbone.marionette": "^2.4.1",
         "chai": "^3.0.0",
         "dustjs-linkedin": "^2.7.2",
-        "istanbul": "^0.3.16",
         "jquery": "^3.4.1",
         "mocha": "^6.2.2",
         "rimraf": "^2.4.0",
